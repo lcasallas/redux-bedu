@@ -1,57 +1,52 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { listaUsuarios } from '../../actions/usuariosActions';
+import Spinner from '../general/Spinner';
+import Fatal from '../general/Fatal';
+import Tabla from './Tabla';
 
 class Usuarios extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     usuarios: [],
-  //   };
-  // }
+	// constructor() {
+	//   super();
+	//   this.state = {
+	//     usuarios: [],
+	//   };
+	// }
 
-  componentDidMount() {
-    this.props.listaUsuarios();
-  }
+	componentDidMount() {
+		this.props.listaUsuarios();
+	}
 
-  ponerFilas = () => {
-    return this.props.usuarios.map((usuario, idx) => (
-      <tr key={idx}>
-        <td>{usuario.name}</td>
-        <td>{usuario.email}</td>
-        <td>{usuario.website}</td>
-      </tr>
-    ));
-  };
+	ponerContenido = () => {
+		if (this.props.cargando) {
+			return <Spinner />;
+		}
+		if (this.props.error) {
+			return <Fatal mensaje={this.props.error} />;
+		}
+		return <Tabla />;
+	};
 
-  render() {
-    console.log(this.props);
-
-    return (
-      <div>
-        <table className='tabla'>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Correo</th>
-              <th>Enlace</th>
-            </tr>
-          </thead>
-          <tbody>{this.ponerFilas()}</tbody>
-        </table>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<h1>Usuarios</h1>
+				{this.ponerContenido()}
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = (reducers) => {
-  return {
-    usuarios: reducers.usuariosReducer.usuarios,
-  };
+	return {
+		usuarios: reducers.usuariosReducer.usuarios,
+		cargando: reducers.usuariosReducer.cargando,
+		error: reducers.usuariosReducer.error,
+	};
 };
 
 const mapDispatchToProps = {
-  listaUsuarios,
+	listaUsuarios,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Usuarios);

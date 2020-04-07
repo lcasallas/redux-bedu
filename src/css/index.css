@@ -1,0 +1,32 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.margen {
+	margin: 100px;
+}
+.tabla {
+	width: 100%;
+	text-align: left;
+}
+.tabla td {
+	padding: 10px 0px;
+}
+#menu {
+	background-color: #253a46;
+	padding: 20px;
+	font-size: 20px;
+}
+#menu a {
+	color: white;
+	padding-right: 50px;
+	text-decoration: none;
+}
+.center {
+	text-align: center;
+}
+.rojo {
+	color: red;
+}
