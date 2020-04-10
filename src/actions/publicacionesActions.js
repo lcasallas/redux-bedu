@@ -3,6 +3,8 @@ import {
   GET_POSTS_USER,
   LOAD_POSTS,
   ERROR_POSTS,
+  LOAD_COMMENTS,
+  ERROR_COMMENTS,
 } from '../types/publicacionesTypes';
 import { GET_USERS } from '../types/usuariosTypes';
 
@@ -86,26 +88,38 @@ export const traerComentarios = (publicacion_key, comment_key) => async (
   dispatch,
   getState
 ) => {
+  dispatch({
+    type: LOAD_COMMENTS,
+  });
+
   const { publicaciones } = getState().publicacionesReducer;
   const seleccionada = publicaciones[publicacion_key][comment_key];
 
-  const respuesta = await axios.get(
-    `https://jsonplaceholder.typicode.com/comments?postId=${seleccionada.id}`
-  );
+  try {
+    const respuesta = await axios.get(
+      `https://jsonplaceholder.typicode.com/comments?postId=${seleccionada.id}`
+    );
 
-  const actualizada = {
-    ...seleccionada,
-    comentarios: respuesta.data,
-  };
+    const actualizada = {
+      ...seleccionada,
+      comentarios: respuesta.data,
+    };
 
-  const publicacionesActualizadas = [...publicaciones];
-  publicacionesActualizadas[publicacion_key] = [
-    ...publicaciones[publicacion_key],
-  ];
-  publicacionesActualizadas[publicacion_key][comment_key] = actualizada;
+    const publicacionesActualizadas = [...publicaciones];
+    publicacionesActualizadas[publicacion_key] = [
+      ...publicaciones[publicacion_key],
+    ];
+    publicacionesActualizadas[publicacion_key][comment_key] = actualizada;
 
-  dispatch({
-    type: GET_POSTS_USER,
-    payload: publicacionesActualizadas,
-  });
+    dispatch({
+      type: GET_POSTS_USER,
+      payload: publicacionesActualizadas,
+    });
+  } catch (error) {
+    console.error('[error]', error.message);
+    dispatch({
+      type: ERROR_COMMENTS,
+      payload: '[Error] Comentarios no disponible!',
+    });
+  }
 };

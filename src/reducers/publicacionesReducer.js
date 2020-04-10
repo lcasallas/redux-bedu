@@ -2,12 +2,16 @@ import {
   GET_POSTS_USER,
   LOAD_POSTS,
   ERROR_POSTS,
+  LOAD_COMMENTS,
+  ERROR_COMMENTS,
 } from '../types/publicacionesTypes';
 
 const INITIAL_STATE = {
   publicaciones: [],
   cargando: false,
   error: '',
+  com_cargando: false,
+  com_error: '',
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,6 +33,17 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
         cargando: false,
+      };
+    case LOAD_COMMENTS:
+      return {
+        ...state,
+        com_cargando: true,
+      };
+    case ERROR_COMMENTS:
+      return {
+        ...state,
+        com_error: action.payload,
+        com_cargando: false,
       };
     default:
       return state;
