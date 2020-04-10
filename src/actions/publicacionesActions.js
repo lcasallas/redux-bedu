@@ -3,6 +3,7 @@ import {
   GET_POSTS_USER,
   LOAD_POSTS,
   ERROR_POSTS,
+  UPDATE_COMMENT,
   LOAD_COMMENTS,
   ERROR_COMMENTS,
 } from '../types/publicacionesTypes';
@@ -112,7 +113,7 @@ export const traerComentarios = (publicacion_key, comment_key) => async (
     publicacionesActualizadas[publicacion_key][comment_key] = actualizada;
 
     dispatch({
-      type: GET_POSTS_USER,
+      type: UPDATE_COMMENT,
       payload: publicacionesActualizadas,
     });
   } catch (error) {

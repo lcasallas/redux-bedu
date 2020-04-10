@@ -1,0 +1,8 @@
+export const GET_TAREAS = 'GET_TAREAS';
+export const LOAD_TAREAS = 'LOAD_TAREAS';
+export const ERROR_TAREAS = 'ERROR_TAREAS';
+export const CHANGE_USERID_TAREAS = 'CHANGE_USERID_TAREAS';
+export const CHANAGE_TITULO_TAREAS = 'CHANAGE_TITULO_TAREAS';
+export const SAVE_TAREAS = 'SAVE_TAREAS';
+export const UPDATE_TAREA = 'UPDATE_TAREA';
+export const CLEAN_FORM = 'CLEAN_FORM';

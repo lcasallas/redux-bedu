@@ -2,6 +2,7 @@ import {
   GET_POSTS_USER,
   LOAD_POSTS,
   ERROR_POSTS,
+  UPDATE_COMMENT,
   LOAD_COMMENTS,
   ERROR_COMMENTS,
 } from '../types/publicacionesTypes';
@@ -22,6 +23,13 @@ export default (state = INITIAL_STATE, action) => {
         publicaciones: action.payload,
         cargando: false,
         error: '',
+      };
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+        publicaciones: action.payload,
+        com_cargando: false,
+        com_error: '',
       };
     case LOAD_POSTS:
       return {
